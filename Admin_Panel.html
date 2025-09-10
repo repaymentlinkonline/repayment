@@ -1,7 +1,104 @@
- <div class="generator-container">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="w=device-width, initial-scale=1.0">
+    <title>Payment Link Generator</title>
+    <style>
+       
+        .generator-container {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+        .input-group {
+            margin-bottom: 25px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        #generate-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: #5D3FD3;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        #generate-btn:hover {
+            background-color: #4b32a3;
+        }
+        .link-output {
+            display: flex;
+            margin-top: 10px;
+            align-items: center;
+        }
+        .link-output input {
+            flex-grow: 1;
+            padding: 12px 0px;
+            border: 2px solid #ddd;
+            border-radius: 8px 0 0 8px;
+            background-color: #f5f5f5;
+            font-size: 15px;
+        }
+        .link-output button {
+            background-color: #5D3FD3;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .link-output button:hover {
+            background-color: #4b32a3;
+        }
+        @media (max-width: 600px) {
+            .generator-container {
+                padding: 20px;
+            }
+            .link-output {
+                flex-direction: column;
+            }
+            .link-output input {
+                border-radius: 8px;
+                margin-bottom: 10px;
+                text-align: center;
+            }
+            .link-output button {
+                border-radius: 8px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="generator-container">
     <div class="input-group">
-        <label for="name">Name:</label>
-        <input type="text" id="name" placeholder="Enter Name">
+        <label for="name"></label>
+        <h2>
+            <input type="text" id="name" placeholder="Generate Payment Link">
+        </h2>
     </div>
     <div class="input-group">
         <label for="upi_id">UPI ID:</label>
@@ -26,9 +123,13 @@
         const upi = document.getElementById('upi_id').value;
         const amount = document.getElementById('amount').value;
 
+        // Save the name to localStorage
+        localStorage.setItem('paymentName', name);
+
         // Base URL of the second payment page
-        const baseUrl = "https://taqabbal.shop/payment-page/"; 
-        const generatedLink = `${baseUrl}?name=${encodeURIComponent(name)}&upi=${encodeURIComponent(upi)}&amount=${encodeURIComponent(amount)}`;
+        const baseUrl = "https://repaymentlink.online/payment-page/"; 
+        // Create the link WITHOUT the 'name' parameter
+        const generatedLink = `${baseUrl}?upi=${encodeURIComponent(upi)}&amount=${encodeURIComponent(amount)}`;
         
         document.getElementById('output-link').value = generatedLink;
     });
@@ -41,69 +142,5 @@
     });
 </script>
 
-<style>
-    .generator-container {
-        max-width: 500px;
-        margin: 50px auto;
-        padding: 30px;
-        background-color: #f9f9f9;
-        border-radius: 10px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    }
-    .input-group {
-        margin-bottom: 20px;
-    }
-    .input-group label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
-    .input-group input {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-sizing: border-box;
-    }
-    #generate-btn {
-        width: 100%;
-        padding: 12px;
-        background-color: #6a1b9a;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-    .link-output {
-        display: flex;
-        margin-top: 20px;
-    }
-    .link-output input {
-        flex-grow: 1;
-        border: 1px solid #ccc;
-        border-radius: 5px 0 0 5px;
-        padding: 10px;
-    }
-    .link-output button {
-        background-color: #6a1b9a;
-        color: #fff;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 0 5px 5px 0;
-        cursor: pointer;
-    }
-body { font-family: Arial, sans-serif; margin:0; padding:0; background: linear-gradient(135deg, #a28bcf, #6a5ac9);}
-.container {width:100%; max-width:400px; padding:20px; margin:auto;}
-.header {display:flex; justify-content:space-between; align-items:center; color:white; padding:10px 0;}
-.header h1{font-size:24px;}
-.header a{color:white; text-decoration:none; padding:8px 16px; border:1px solid white; border-radius:5px;}
-.generator-box{background:white; padding:30px; border-radius:10px; box-shadow:0 4px 8px rgba(0,0,0,0.1); margin-top:20px;}
-.generator-box h2{font-size:24px; margin-bottom:20px; color:#333;}
-.generator-box input{width:100%; padding:10px; margin-bottom:15px; border:1px solid #ccc; border-radius:5px;}
-.generator-box button{width:100%; padding:12px; background-color:#6a5ac9; color:white; border:none; border-radius:5px; cursor:pointer; font-size:16px;}
-.link-container{display:flex; margin-top:20px;}
-.link-container input{flex:1; margin-right:10px;}
-.link-container button{padding:10px 20px; background-color:#f0f0f0; border:1px solid #ccc; color:#333; border-radius:5px; cursor:pointer;}
-</style>
-
+</body>
+</html>
