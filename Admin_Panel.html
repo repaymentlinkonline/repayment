@@ -1,0 +1,109 @@
+ <div class="generator-container">
+    <div class="input-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Enter Name">
+    </div>
+    <div class="input-group">
+        <label for="upi_id">UPI ID:</label>
+        <input type="text" id="upi_id" placeholder="Enter UPI ID">
+    </div>
+    <div class="input-group">
+        <label for="amount">Amount:</label>
+        <input type="text" id="amount" placeholder="Enter Amount">
+    </div>
+    
+    <button id="generate-btn">Generate Payment Link</button>
+    
+    <div class="link-output">
+        <input type="text" id="output-link" readonly>
+        <button id="copy-btn">Copy</button>
+    </div>
+</div>
+
+<script>
+    document.getElementById('generate-btn').addEventListener('click', function() {
+        const name = document.getElementById('name').value;
+        const upi = document.getElementById('upi_id').value;
+        const amount = document.getElementById('amount').value;
+
+        // Base URL of the second payment page
+        const baseUrl = "https://taqabbal.shop/payment-page/"; 
+        const generatedLink = `${baseUrl}?name=${encodeURIComponent(name)}&upi=${encodeURIComponent(upi)}&amount=${encodeURIComponent(amount)}`;
+        
+        document.getElementById('output-link').value = generatedLink;
+    });
+
+    document.getElementById('copy-btn').addEventListener('click', function() {
+        const outputLink = document.getElementById('output-link');
+        outputLink.select();
+        document.execCommand('copy');
+        alert("Link copied!");
+    });
+</script>
+
+<style>
+    .generator-container {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+    .input-group {
+        margin-bottom: 20px;
+    }
+    .input-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    .input-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    #generate-btn {
+        width: 100%;
+        padding: 12px;
+        background-color: #6a1b9a;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    .link-output {
+        display: flex;
+        margin-top: 20px;
+    }
+    .link-output input {
+        flex-grow: 1;
+        border: 1px solid #ccc;
+        border-radius: 5px 0 0 5px;
+        padding: 10px;
+    }
+    .link-output button {
+        background-color: #6a1b9a;
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 0 5px 5px 0;
+        cursor: pointer;
+    }
+body { font-family: Arial, sans-serif; margin:0; padding:0; background: linear-gradient(135deg, #a28bcf, #6a5ac9);}
+.container {width:100%; max-width:400px; padding:20px; margin:auto;}
+.header {display:flex; justify-content:space-between; align-items:center; color:white; padding:10px 0;}
+.header h1{font-size:24px;}
+.header a{color:white; text-decoration:none; padding:8px 16px; border:1px solid white; border-radius:5px;}
+.generator-box{background:white; padding:30px; border-radius:10px; box-shadow:0 4px 8px rgba(0,0,0,0.1); margin-top:20px;}
+.generator-box h2{font-size:24px; margin-bottom:20px; color:#333;}
+.generator-box input{width:100%; padding:10px; margin-bottom:15px; border:1px solid #ccc; border-radius:5px;}
+.generator-box button{width:100%; padding:12px; background-color:#6a5ac9; color:white; border:none; border-radius:5px; cursor:pointer; font-size:16px;}
+.link-container{display:flex; margin-top:20px;}
+.link-container input{flex:1; margin-right:10px;}
+.link-container button{padding:10px 20px; background-color:#f0f0f0; border:1px solid #ccc; color:#333; border-radius:5px; cursor:pointer;}
+</style>
+
